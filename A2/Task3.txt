@@ -1,0 +1,75 @@
+Output of perplexity.m:
+
+>> perplexity(LME, '/u/cs401/A2_SMT/data/Hansard/Training/', 'e', '',0)
+
+ans =
+
+   22.7622
+   
+>> perplexity(LME, '/u/cs401/A2_SMT/data/Hansard/Training/', 'e', 'smooth', 0.1)
+
+ans =
+
+   51.5561
+
+>> perplexity(LME, '/u/cs401/A2_SMT/data/Hansard/Training/', 'e', 'smooth', 1)
+
+ans =
+
+  128.5669
+
+>> perplexity(LME, '/u/cs401/A2_SMT/data/Hansard/Training/', 'e', 'smooth', 0.5)
+
+ans =
+
+   93.6453
+
+>> perplexity(LME, '/u/cs401/A2_SMT/data/Hansard/Training/', 'e', 'smooth', 0.01)
+
+ans =
+
+   30.6223 
+
+
+>>> perplexity(LMF, '/u/cs401/A2_SMT/data/Hansard/Training/', 'f', 'smooth', 0.5)
+
+ans =
+
+  100.6374
+
+
+>>> perplexity(LMF, '/u/cs401/A2_SMT/data/Hansard/Training/', 'f', 'smooth', 1)
+
+ans =
+
+  141.0774
+
+>>> perplexity(LMF, '/u/cs401/A2_SMT/data/Hansard/Training/', 'f', 'smooth', 0.1)
+
+ans =
+
+   53.5214
+
+>>> perplexity(LMF, '/u/cs401/A2_SMT/data/Hansard/Training/', 'f', 'smooth', 0.01)
+
+ans =
+
+   30.5667
+
+>>> perplexity(LMF, '/u/cs401/A2_SMT/data/Hansard/Training/', 'f', '', 0)
+
+ans =
+
+   21.6870
+
+
+As Q3 required, I compute the perplexity of the data for each language and for both the 
+MLE and add-δ versions. The value of delta are 1, 0.5, 0.1, 0.01.
+From the output above, we can find that MLE will always generate the lowest perplexity, 
+for both english and french. 
+For the add-δ versions, there exists enough evidence to show that the perplexity tend to
+become small when the value of delta become smaller.
+In conclusion, MLE will always get the lowest perplexity and if we use need to add
+smoothing, we should choose the smaller value of delta, since lower perplexity model
+is better
+

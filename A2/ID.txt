@@ -1,0 +1,14 @@
+Last name: Wang
+First Name: Sijia
+Student ID Number: 998804548
+CDF login id: g2peter
+Contact email address: sijia.wang@mail.utoronto.ca 
+BlueMix credentials: 
+	1) Speech to Text: 82324dc9-ee9d-4813-a6b6-81bb038e3f55, hDT9yNvqS4lq
+	2) Text to Speech: d80d4fac-f681-4663-8eee-5e863bd99697, WSLyVfyol1HO
+UG/Grad?: Undergraduate
+
+By submitting this file, I declare that my electronic submission is my
+own work, and is in accordance with the University of Toronto Code of
+Behaviour on Academic Matters and the Code of Student Conduct, as well
+as the collaboration policies of this course.

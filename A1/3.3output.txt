@@ -1,0 +1,74 @@
+output of n=500
+
+== Attribute Selection on all input data ===
+
+Search Method:
+	Attribute ranking.
+
+Attribute Evaluator (supervised, Class (nominal): 21 class):
+	Information Gain Ranking Filter
+
+Ranked attributes:
+ 0.01339   19 Average length of tokens, excluding punctuation tokens (in characters)
+ 0.01291   14 Adverbs
+ 0.00877    5 Past-tense verbs
+ 0.00717    8 Colons, and semi-colons
+ 0          6 Future-tense verbs
+ 0          9 Dashes
+ 0          7 Commas
+ 0          4 Coordinating conjunctions
+ 0          3 Third person pronouns
+ 0          1 First person pronouns
+ 0          2 Second person pronouns
+ 0         17 Words all in upper case (at lease 2 letters long)
+ 0         16 Modern slang acronyms
+ 0         20 Number of sentences
+ 0         18 Average lengths of sentences (in tokens)
+ 0         11 Ellipses
+ 0         10 Parentheses
+ 0         15 wh-words
+ 0         12 Common nouns
+ 0         13 Proper nuons
+
+Selected attributes: 19,14,5,8,6,9,7,4,3,1,2,17,16,20,18,11,10,15,12,13 : 20
+
+
+
+output of n=5500
+
+
+Search Method:
+	Attribute ranking.
+
+Attribute Evaluator (supervised, Class (nominal): 21 class):
+	Information Gain Ranking Filter
+
+Ranked attributes:
+ 0.01817    14 Adverbs
+ 0.009016   18 Average lengths of sentences (in tokens)
+ 0.005163    5 Past-tense verbs
+ 0.004814   19 Average length of tokens, excluding punctuation tokens (in characters)
+ 0.003229    4 Coordinating conjunctions
+ 0.003188   13 Proper nuons
+ 0.001115    2 Second person pronouns
+ 0.001078   15 wh-words
+ 0.001031    7 Commas
+ 0.000841   16 Modern slang acronyms
+ 0.000754    8 Colons, and semi-colons
+ 0           3 Third person pronouns
+ 0           6 Future-tense verbs
+ 0           1 First person pronouns
+ 0          12 Common nouns
+ 0          20 Number of sentences
+ 0          17 Words all in upper case (at lease 2 letters long)
+ 0           9 Dashes
+ 0          11 Ellipses
+ 0          10 Parentheses
+
+Selected attributes: 14,18,5,19,4,13,2,15,7,16,8,3,6,1,12,20,17,9,11,10 : 20
+
+
+
+============Comment==============
+
+In both cases, number of adverbs retains its importance. One possible explanation is adverbs are crucial in determining the class of the tweet, hence it contains much more information bits than some other attributes.

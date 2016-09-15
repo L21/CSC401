@@ -1,0 +1,30 @@
+Training Size		Test Accuracy		Training Accuracy 
+500				55.9889  %		59.5 %
+
+1000			56.2674 %		57.9 %
+
+1500			52.9248 %		57.9333 %
+
+2000			55.7103 %		58.775 %
+
+2500			54.8747 %		59.46 %
+
+3000			55.1532 %		59.3333 %
+
+3500			55.4318 %		59.2143 %
+
+4000			54.039 %		59.2125 %
+
+4500			54.8747 %		59.6444 %
+
+5000			54.5961 %		59.79 %
+
+5500			54.8747 %		59.6782 %
+
+
+Comment:
+Even though as the number of training sample increases the accuracy of test seemed to be dropping, the training accuracy between 500 and 5500 are not much different. 
+Probable causes of the changing of the testing accuracy are:
+In some tweets, incorrect use of grammars and words may introduce noise to the training model and may interfere with the learning process. 
+Some unknown factors for determining the classification (other than the 20 features) were ignored by the learning model, causing the training to be insufficient. 
+Some testing tweets may have the inaccurate/misplaced label that affected the test accuracy. 

@@ -1,0 +1,132 @@
+Best classifier: SVMs
+
+=======================================================================
+Output of java -cp /u/cs401/WEKA/weka.jar weka.classifiers.functions.SMO -t all.arff -T test.arff -o
+=======================================================================
+
+Time taken to build model: 2.02 seconds
+Time taken to test model on training data: 0.17 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances        6568               59.7091 %
+Incorrectly Classified Instances      4432               40.2909 %
+Kappa statistic                          0.1942
+Mean absolute error                      0.4029
+Root mean squared error                  0.6348
+Relative absolute error                 80.5818 %
+Root relative squared error            126.9502 %
+Total Number of Instances            11000     
+
+
+=== Confusion Matrix ===
+
+    a    b   <-- classified as
+ 2758 2742 |    a = 0
+ 1690 3810 |    b = 4
+
+
+=== Error on test data ===
+
+Correctly Classified Instances         197               54.8747 %
+Incorrectly Classified Instances       162               45.1253 %
+Kappa statistic                          0.0925
+Mean absolute error                      0.4513
+Root mean squared error                  0.6718
+Relative absolute error                 90.2507 %
+Root relative squared error            134.3508 %
+Total Number of Instances              359     
+
+
+Output of other two classifiers: 
+
+=======================================================================
+Decision trees
+=======================================================================
+Time taken to build model: 1.84 seconds
+Time taken to test model on training data: 0.11 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances        9130               83      %
+Incorrectly Classified Instances      1870               17      %
+Kappa statistic                          0.66  
+Mean absolute error                      0.2459
+Root mean squared error                  0.3506
+Relative absolute error                 49.1794 %
+Root relative squared error             70.128  %
+Total Number of Instances            11000     
+
+
+=== Confusion Matrix ===
+
+    a    b   <-- classified as
+ 4555  945 |    a = 0
+  925 4575 |    b = 4
+
+
+=== Error on test data ===
+
+Correctly Classified Instances         192               53.4819 %
+Incorrectly Classified Instances       167               46.5181 %
+Kappa statistic                          0.069 
+Mean absolute error                      0.4753
+Root mean squared error                  0.6023
+Relative absolute error                 95.0535 %
+Root relative squared error            120.4564 %
+Total Number of Instances              359     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+  90  87 |   a = 0
+  80 102 |   b = 4
+
+
+=======================================================================
+Naive Bayes
+=======================================================================
+
+Time taken to build model: 0.15 seconds
+Time taken to test model on training data: 0.52 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances        6411               58.2818 %
+Incorrectly Classified Instances      4589               41.7182 %
+Kappa statistic                          0.1656
+Mean absolute error                      0.4582
+Root mean squared error                  0.5065
+Relative absolute error                 91.6366 %
+Root relative squared error            101.3065 %
+Total Number of Instances            11000     
+
+
+=== Confusion Matrix ===
+
+    a    b   <-- classified as
+ 3912 1588 |    a = 0
+ 3001 2499 |    b = 4
+
+
+=== Error on test data ===
+
+Correctly Classified Instances         196               54.5961 %
+Incorrectly Classified Instances       163               45.4039 %
+Kappa statistic                          0.0898
+Mean absolute error                      0.4757
+Root mean squared error                  0.5317
+Relative absolute error                 95.1334 %
+Root relative squared error            106.3385 %
+Total Number of Instances              359     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+  82  95 |   a = 0
+  68 114 |   b = 4
+
+
+

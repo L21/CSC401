@@ -1,0 +1,9 @@
+Accuracy with ibmTrain500.csv: 0.7103064066852368
+Accuracy with ibmTrain2500.csv: 0.7743732590529248
+Accuract with ibmTrain5000.csv: 0.7604456824512534
+Discussion:
+Compared to test results in part3, accuracy of training with 2500 samples each class is slightly better than training with 5000 each class in both Watson and SVMs. Which could be some parsing error in our code or the case of some noise or mislabel data in the training file that caused the model to performance worse. One thing we do notice is that some of tweet texts in the training files were not utf-8 encoded and we chose to ignore these charaters. This could contribute to degrading the overall performance. Compared to part3, the overall accuracy is much higher and we think it is because Watson used attributes far more than the 20 ones we used in part3 to train the model which could also explain the longer time taken to train the model. In conclusion, in order to get a better accurate and more robust model should be used (i.e., more attributes to analyze the training data) and more data is needed.
+
+Average confidence with ibmTrain500.csv(Correct, Incorrect): (0.9261877418446505, 0.8823137296041316) 
+Average confidence with ibmTrain2500.csv(Correct, Incorrect): (0.9465451363930801, 0.8657039143212863)
+Average confidence with ibmTrain5000.csv((Correct, Incorrect): (0.9393002649674119, 0.8863111709340633)

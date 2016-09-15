@@ -1,0 +1,660 @@
+=======================
+Section 2.3
+=======================
+
+————————————————————————————————
+Changes in number of components 
+————————————————————————————————
+M = 8:
+Classification Accuracy: 100%
+
+M = 1:
+Classification Accuracy: 93%
+
+M = 30;
+Classification Accuracy: 0%
+
+Holding epsilon and number of iterations constant (eps = 0.01, 20 iterations). 
+If we decrease the number of components from 8 to 1, accuracy of classification dropped by 7% from 100% to 93%. 
+Further more, the model on average is more than 50 times less confident about its first choice. (i.e. the calculated probability of each test utterance is more than 50 times less than that of 8 components). 
+This indicates that the classification process is related to the number of components, and the more components there are, the better the model will fit to the training data. 
+However, if there are too many Gaussian distributions (e.g. 30 gaussian distributions), it could overfit the training data so much that any new test data would have a too small probability to classify as any speaker.
+
+——————————————————————————————————————
+Changes in number of possible speakers
+——————————————————————————————————————
+Number of possible speakers: 10
+Classification Accuracy: 33.3%
+
+Number of possible speakers: 30
+Classification Accuracy:100%
+
+
+Holding everything else constant, if we reduce the number of possible speakers S to 10, we see the classification accuracy dropped to 1/3 of before, the wrongly classified cases are in fact come from the removed speakers and was thought as a new speaker by the model so it gave them the best possible fit from the remaining 10 speakers. 
+This in turn indicates the model still has a 100% classification accuracy on speakers it’s trained on. 
+However, we noticed the model’s average confidence of classification does not have a significant change. This is probably because each gmm model is trained independently based on each speaker. 
+
+————————————————————————————————
+Additional experiments
+————————————————————————————————
+Number of Iterations: 20
+Classification Accuracy: 100% 
+
+Number of Iterations: 100
+Classification Accuracy: 93.3%
+
+Number of Iterations: 1000
+Classification Accuracy: 93.3%
+
+If we increase number of iterations to 100, we see a decrease of classification accuracy. This is probably because of the model overfits the training data hence handles new data worse than before.
+Additionally, we found that if we change the number of iterations from 20 to 100, the models’s classification confidence has improved by a little. We think this is because there are still space for improvement after the 20th iteration that is larger than epsilon (which is set to 0.01) hence the model is still converging. However, if we set the number of iterations from 100 to 1000, there is little improvement on the test results. We think this is because the model has converged and terminated training long before it hits 1000th iteration. 
+
+————————————————————————————————
+Improve classification accuracy
+————————————————————————————————
+
+We noticed that because we used random initialization, the testing results vary from time to time. This is probably because the some poorly random initialized data may take longer to converge than others.
+To improve the accuracy of classification, we can initialize the training data using k-means instead of random initialization as used in the assignment. This could accelerate convergence as well as improve classification accuracy. However, choosing K becomes important and needs to be experimented on before proceeding to training.
+
+————————————————————————————————
+Determining outside data
+————————————————————————————————
+If the model cannot fit the data into any model, it will show a probability of NaN. This is because the probability of data fitting any of the 30 speakers is too small for MATLAB to count.
+
+————————————————————————————————
+Alternative methods
+————————————————————————————————
+In addition to mixture of gaussian, we can use neural network, decision trees, and some other methods of machine learning for training and classification. 
+
+=======================
+Section 3.2
+=======================
+Default Setup: accuracy = 44.52%
+
+Initial setup gave a classification accuracy of 44.52%. 
+
+————————————————————————
+Experiments on dimension:
+————————————————————————
+
+Dimension = 2: 16.88%
+Dimension = 7: 39.41%
+Dimension = 9:	45.16%
+Dimension = 11: 42.17%
+
+Holding everything else constant, when increasing the dimension of training data up to 9, the model performance improved. However, when dimension was changed to 11 and 14(default model), performance seemed to vary. This is probably because as stated in lecture, MFCC data’s dimensions are highly uncorrelated and changing dimensions may have more complicated impact on testing. 
+
+—————————————————————————————————
+Experiments on number of mixtures:
+—————————————————————————————————
+
+Mixture = 2: 46.62%
+Mixture = 4: 46.90%
+Mixture = 6: 45.89%
+
+Holding everything else constant, when increasing the number from 2 to 4 improved model performance and in both cases the model performed better than the original model with 8 mixtures. However, with 6 mixtures, the model’s performance began to degrade. This is probably because with more than 5 mixtures, the model began to overfit training data and thus will have a worse performance. 
+
+——————————————————————————————————————
+Experiments on number of hidden states:
+——————————————————————————————————————
+
+Hidden States = 1: 43.89%
+Hidden States = 6: 42.06%
+Hidden States = 9: 42.79%
+
+Holding everything else constant, when increasing the number of hidden states from 1 to 3 (default model), test performance increased by a small amount. However, as the number of hidden states continued to increase, performance began to degrade. This indicates that a better model in this experiment should not have many more than 3 hidden states.
+
+——————————————————————————————————————
+Experiments on number of training data:
+——————————————————————————————————————
+
+2/3 Original Training Size: 40.24%
+1/3 Original Training Size: 26.64%
+
+Holding everything else constant, when decrease the training set size to 2/3 of the default model, performance began to degrade. Further decrease the training set size to 1/3, performance degraded by over 40%. This indicates having a larger amount of training data can improve model’s performance in this case.
+
+
+After experimenting with changing 1 attribute at a time, we wondered if multiple attributes have joint effect on the model’s performance 
+
+————————————————————————————————————————————————
+Experiments on number of mixtures and hidden states: 
+————————————————————————————————————————————————
+
+Mixture = 2, Hidden States = 9: 48.44%
+Mixture = 6, Hidden States = 1: 43.52%
+
+Holding everything else constant, having a smaller mixture and more hidden states than original model gives a better performance and vice versa. This indicates that there is probably a joint effect between number of mixtures and hidden states. 
+
+For the last experiment we want to know how bad could it be if we setup the attributes badly by coincidence. 
+————————————————————————————————————————————————
+Experiments on number of mixtures and hidden states: 
+————————————————————————————————————————————————
+Mixture = 4, Hidden States = 2, Dimension = 7, 1/2 Original Training Size: 33.67%
+
+By setting every attribute to a worse value than original model, we get a worse test performance as expected. 
+However, we find that interesting setting the dimension smaller alone has a even worse performance than this. Which could indicate that number of dimensions may have a bigger impact on model performance than any other attributes. 
+
+
+=======================
+Section 3.3
+=======================
+
+————————————
+Overall WER
+————————————
+
+SE =
+
+    0.0462
+
+
+IE =
+
+     0
+
+
+DE =
+
+    0.0308
+
+
+LEV_DIST =
+
+    0.0769
+
+
+
+=======================
+Section 4.1
+=======================
+
+————————————
+Overall WER
+————————————
+
+SE =
+
+    0.0538
+
+
+IE =
+
+     0
+
+
+DE =
+
+    0.0231
+
+
+LEV_DIST =
+
+    0.0769
+xt: 
+Utterance: unkn_1
+Recognized text: now here is truly a Marvel
+SE: 0.16667
+DE: 0
+IE: 0
+LEV_DIST: 0.16667
+
+Utterance: unkn_2
+Recognized text: captain features a muskrat and a tadpole
+SE: 0.125
+DE: 0.125
+IE: 0
+LEV_DIST: 0.25
+
+Utterance: unkn_3
+Recognized text: just let me die in peace
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_4
+Recognized text: the sculptor looked at him bug eyed and amazed angry
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_5
+Recognized text: flash live in the trees as a cricket ball twig in several directions
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_6
+Recognized text: this is particularly true in site selection
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_7
+Recognized text: we would lose our export markets and deny ourselves imports we need
+SE: 0.076923
+DE: 0.076923
+IE: 0
+LEV_DIST: 0.15385
+
+Utterance: unkn_8
+Recognized text: continental have teaspoons of soy sauce that you add
+SE: 0.1
+DE: 0.1
+IE: 0
+LEV_DIST: 0.2
+
+Utterance: unkn_9
+Recognized text: finally he asked do you object to petting
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_10
+Recognized text: try every other line first then fill in the interior
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_11
+Recognized text: change involves the displacement of femme
+SE: 0.16667
+DE: 0
+IE: 0
+LEV_DIST: 0.16667
+
+Utterance: unkn_12
+Recognized text: to his puzzlement there suddenly was no Hayes
+SE: 0.125
+DE: 0
+IE: 0
+LEV_DIST: 0.125
+
+Utterance: unkn_13
+Recognized text: dont ask me to carry read like that
+SE: 0.1
+DE: 0.1
+IE: 0
+LEV_DIST: 0.2
+
+Utterance: unkn_14
+Recognized text: full moon shone brightly that night
+SE: 0.14286
+DE: 0.14286
+IE: 0
+LEV_DIST: 0.28571
+
+Utterance: unkn_15
+Recognized text: tug boats a capable of hauling huge loads
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_16
+Recognized text: did dad do academic betting
+SE: 0.2
+DE: 0
+IE: 0
+LEV_DIST: 0.2
+
+Utterance: unkn_17
+Recognized text: she had your dark suit increase you wash water all year
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_18
+Recognized text: the thick el virus was nearly overwhelmed by Dutch elm disease
+SE: 0.090909
+DE: 0
+IE: 0
+LEV_DIST: 0.090909
+
+Utterance: unkn_19
+Recognized text: cop number of teaspoons of soy sauce that you had
+SE: 0.1
+DE: 0
+IE: 0
+LEV_DIST: 0.1
+
+Utterance: unkn_20
+Recognized text: waging sweaters are made of lambs will
+SE: 0.14286
+DE: 0
+IE: 0
+LEV_DIST: 0.14286
+
+Utterance: unkn_21
+Recognized text: we think differently
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_22
+Recognized text: a toothpaste tube should be squeezed from the bottom
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_23
+Recognized text: ran away a black knight with a lawful wedded man
+SE: 0.090909
+DE: 0.090909
+IE: 0
+LEV_DIST: 0.18182
+
+Utterance: unkn_24
+Recognized text: dont ask me to carry an oily rag like that
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_25
+Recognized text: town asked me to carry an oily rag like that
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_26
+Recognized text: index words and electronic switches may be reserved in the following ways
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_27
+Recognized text: yeah avalanche triggered a minor earthquake
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_28
+Recognized text: dont ask me to carry an oily rag like that
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_29
+Recognized text: the thick and Forrest was nearly overwhelmed by Dutch elm disease
+SE: 0.090909
+DE: 0
+IE: 0
+LEV_DIST: 0.090909
+
+Utterance: unkn_30
+Recognized text: when all else fails use force
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+
+=======================
+Section 4.2
+=======================
+
+————————————
+Overall WER
+————————————
+
+SE =
+
+    0.0231
+
+
+IE =
+
+     0
+
+
+DE =
+
+    0.0038
+
+
+LEV_DIST =
+
+    0.0269
+
+——————————————————————
+WER for each utterance
+——————————————————————
+Utterance: unkn_1
+Recognized text:now here is truly of Marvel
+SE: 0.16667
+DE: 0
+IE: 0
+LEV_DIST: 0.16667
+
+Utterance: unkn_2
+Recognized text:the cartoon features of muskrat and a tadpole
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_3
+Recognized text:just let me die in peace
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_4
+Recognized text:the sculptor looked at him Eugene amazed angry
+SE: 0.11111
+DE: 0.11111
+IE: 0
+LEV_DIST: 0.22222
+
+Utterance: unkn_5
+Recognized text:a flash illumined the trees is a cricket ball twig in several directions
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_6
+Recognized text:this is particularly true in site selection
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_7
+Recognized text:we would lose our export markets and deny ourselves the imports we need
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_8
+Recognized text:count the number of teaspoons of soy sauce that you add
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_9
+Recognized text:finally he asked do you object to patting
+SE: 0.125
+DE: 0
+IE: 0
+LEV_DIST: 0.125
+
+Utterance: unkn_10
+Recognized text:draw every other line first then fill in the interior
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_11
+Recognized text:change involves the displacement of form
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_12
+Recognized text:to his puzzlement there suddenly was no Hayes
+SE: 0.125
+DE: 0
+IE: 0
+LEV_DIST: 0.125
+
+Utterance: unkn_13
+Recognized text:dont ask me to carry an oily rag like that
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_14
+Recognized text:the full moon shone brightly that night
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_15
+Recognized text:tug boats are capable of hauling huge loads
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_16
+Recognized text:the dead do academic bidding
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_17
+Recognized text:she had your dark suit in Greece a wash water all year
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_18
+Recognized text:the thick around forest was nearly overwhelmed by Dutch elm disease
+SE: 0.090909
+DE: 0
+IE: 0
+LEV_DIST: 0.090909
+
+Utterance: unkn_19
+Recognized text:count the number of teaspoons of soy sauce that you add
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_20
+Recognized text:Norwegian sweaters are made of lambs wool
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_21
+Recognized text:we think differently
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_22
+Recognized text:a toothpaste tube should be squeezed from the bottom
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_23
+Recognized text:ran away on a black knight with a lawful wedded man
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_24
+Recognized text:dont ask me to carry an oily rag like that
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_25
+Recognized text:dont ask me to carry an oily rag like that
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_26
+Recognized text:index words and electronic switches may be reserved in the following ways
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_27
+Recognized text:the avalanche triggered a minor earthquake
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_28
+Recognized text:dont ask me to carry an oily rag like that
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Utterance: unkn_29
+Recognized text:the thick elm forest was nearly overwhelmed by Dutch elm disease
+SE: 0.090909
+DE: 0
+IE: 0
+LEV_DIST: 0.090909
+
+Utterance: unkn_30
+Recognized text:when all else fails use force
+SE: 0
+DE: 0
+IE: 0
+LEV_DIST: 0
+
+Comparison: 
+
+The re-recognized text in 4.2 has a lot less errors compared to the ones in 4.1. This is probably because the audio synthesized by Watson has a lot less variants compared to the original audio (e.g., accent, difference in volume, speed of speech, speakers’ tone, etc.). In the real world, samples like the synthesized audios are quite hard to obtain and most use cases will not be as easy for speech to text applications. Therefore, there is still much need for improvement on both recording technologies and the actual speech to text algorithms.
+
+
+=======================
+Bonus:
+=======================
+
+————————————
+Voice banking
+————————————
+username: pete0412
+completed sessions: 2
+
+
